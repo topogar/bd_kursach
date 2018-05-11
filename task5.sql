@@ -19,7 +19,7 @@ WHERE
    foundation_dt > '1950-1-1';
 
 
-SELECT DISTINCT
+SELECT
    MAX(cinematic_universe_nm)    AS Cinematic_universe
    , MIN(premier_dt)             AS FirstMovie
    , MAX(premier_dt)             AS LastMovie
