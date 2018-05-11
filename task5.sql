@@ -34,7 +34,7 @@ GROUP BY
 
 
 SELECT
-   movie_nm
+   MAX(movie_nm)
    , COUNT(movie_nm)             AS Count_reward
 FROM
    movie

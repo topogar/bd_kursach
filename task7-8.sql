@@ -29,8 +29,8 @@ SELECT *
 
 /* Первый фильм киновселенной */
 CREATE OR REPLACE VIEW year_cin_un AS (
-    SELECT DISTINCT
-      cinematic_universe_nm
+    SELECT
+      MAX(cinematic_universe_nm)
       , MIN(Extract(YEAR from(premier_dt))) AS year_beginning
     FROM
       cinematic_universe AS cu
@@ -148,19 +148,19 @@ SELECT *
    FROM rew_movie;
 /* Работает со сборами фильмов */
 CREATE OR REPLACE VIEW cin_un_mon AS (
-  SELECT
-                  cu.cinematic_universe_nm,
-                  AVG(fees_amt :: numeric) AS avg_fees,
-                  SUM(fees_amt)            AS sum_fees,
-                  movie_cnt
-                FROM
-                  movie
-                  INNER JOIN
-                  cinematic_universe AS cu
-                    ON
-                      movie.cinematic_universe_id = cu.cinematic_universe_id
-                GROUP BY
-                  cu.cinematic_universe_id);
+     SELECT
+       MAX(cu.cinematic_universe_nm)   AS cin_un
+       , AVG(fees_amt :: numeric)      AS avg_fees
+       , SUM(fees_amt)                 AS sum_fees
+       , movie_cnt
+     FROM
+        movie
+     INNER JOIN
+        cinematic_universe AS cu
+     ON
+        movie.cinematic_universe_id = cu.cinematic_universe_id
+     GROUP BY
+        cu.cinematic_universe_id);
 
 
 DROP VIEW cin_un_mon;
